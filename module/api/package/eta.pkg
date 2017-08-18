@@ -1,0 +1,119 @@
+create or replace package eta as
+
+    -- Package name
+    PACKAGE_NAME   constant varchar2(30) := '&&g_package_name';
+    function get_package_name return varchar2;
+
+    -- Package SQL Name compatible version
+    SQL_VERSION    constant varchar2(30) := '&&g_sql_version';
+    function get_sql_version return varchar2;
+
+    -- Semver version
+    SEMVER_VERSION constant varchar2(30) := '&&g_semver_version';
+    function get_semver_version return varchar2;
+
+    subtype eta_interval is interval day(9) to second(6);
+
+    procedure set_total_work(total_work in pls_integer);
+
+    function get(sofar in pls_integer) return eta_interval;
+
+    function get (
+        started_at in timestamp,
+        total_work in pls_integer,
+        sofar      in pls_integer
+    ) return eta_interval;
+
+    DAYS_DEFAULT      constant pls_integer := 0;
+    FRACTIONS_DEFAULT constant pls_integer := 0;
+
+    function get_formatted
+    (
+        sofar     in pls_integer,
+        days      in pls_integer default DAYS_DEFAULT,
+        fractions in pls_integer default FRACTIONS_DEFAULT
+    ) return varchar2;
+
+    function get_formatted
+    (
+        started_at in timestamp,
+        total_work in pls_integer,
+        sofar      in pls_integer,
+        days       in pls_integer default DAYS_DEFAULT,
+        fractions  in pls_integer default FRACTIONS_DEFAULT
+    ) return varchar2;
+
+end;
+/
+create or replace package body eta as
+
+    ----------------------------------------------------------------------------
+    function get_package_name return varchar2 is
+    begin
+        return PACKAGE_NAME;
+    end;
+
+    ----------------------------------------------------------------------------
+    function get_sql_version return varchar2 is
+    begin
+        return SQL_VERSION;
+    end;
+
+    ----------------------------------------------------------------------------
+    function get_semver_version return varchar2 is
+    begin
+        return SEMVER_VERSION;
+    end;
+
+    ----------------------------------------------------------------------------
+    procedure set_total_work(total_work in pls_integer) is
+    begin
+        eta_impl.setTotalWork(total_work);
+    end;
+
+    ----------------------------------------------------------------------------
+    function get(sofar in pls_integer) return eta_interval is
+    begin
+        return eta_impl.get(sofar);
+    end;
+
+    ----------------------------------------------------------------------------
+    function get(
+        started_at in timestamp,
+        total_work in pls_integer,
+        sofar      in pls_integer
+    ) return eta_interval is
+    begin
+        return eta_impl.get(started_at, total_work, sofar);
+    end;
+
+    ----------------------------------------------------------------------------
+    function get_formatted
+    (
+        sofar     in pls_integer,
+        days      in pls_integer default DAYS_DEFAULT,
+        fractions in pls_integer default FRACTIONS_DEFAULT
+    ) return varchar2 is
+        l_days      pls_integer := nvl(days, DAYS_DEFAULT);
+        l_fractions pls_integer := nvl(fractions, FRACTIONS_DEFAULT);
+    begin
+        return eta_impl.getFormatted(sofar, l_days, l_fractions);
+    end;
+
+    ----------------------------------------------------------------------------
+    function get_formatted
+    (
+        started_at in timestamp,
+        total_work in pls_integer,
+        sofar      in pls_integer,
+        days       in pls_integer default DAYS_DEFAULT,
+        fractions  in pls_integer default FRACTIONS_DEFAULT
+    ) return varchar2 is
+        l_days      pls_integer := nvl(days, DAYS_DEFAULT);
+        l_fractions pls_integer := nvl(fractions, FRACTIONS_DEFAULT);
+    begin
+        return eta_impl.getFormatted(started_at, total_work, sofar, l_days, l_fractions);
+    end;
+
+end;
+/
