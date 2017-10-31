@@ -15,8 +15,14 @@ define l_configuration = "&1"
 rem Load package
 @@package.sql
 
+rem init SQL*Plus settings
+@sqlplus_init.sql
+
 prompt Create schemas
 @@module/dba/create_&&l_configuration..sql
+
+rem finalize SQL*Plus
+@@sqlplus_finalize.sql
 
 rem undefine script locals
 undefine l_configuration

@@ -23,7 +23,7 @@ create or replace package eta as
 
     Sets total work in session and stores timestamp of call as start of processing timestamp
 
-    @param total_work total work units count
+    %param total_work total work units count
 
     */
     procedure set_total_work(total_work in pls_integer);
@@ -32,8 +32,8 @@ create or replace package eta as
 
     Get ETA interval computed from total work set, start timestamp (see set_total_work) and count of units processed so far
 
-    @param sofar count of units processed so far
-    @return computed ETA interval
+    %param sofar count of units processed so far
+    %return computed ETA interval
 
     */
     function get(sofar in pls_integer) return eta_interval;
@@ -42,10 +42,10 @@ create or replace package eta as
 
     Get ETA interval computed from total work set, start timestamp and count of units processed so far.
 
-    @param started_at timestamp of start
-    @param total_Work total count of work units to be processed
-    @param sofar count of units processed so far
-    @return computed ETA interval
+    %param started_at timestamp of start
+    %param total_Work total count of work units to be processed
+    %param sofar count of units processed so far
+    %return computed ETA interval
 
     */
     function get (
@@ -61,10 +61,10 @@ create or replace package eta as
 
     Formats ETA interval as string with **days** position for days and **fractions** positions for fractions of second.
 
-    @param sofar - count of work items already processed
-    @param days - days positions
-    @param fractions - fractions positions
-    @return ETA interval formatted as string
+    %param sofar - count of work items already processed
+    %param days - days positions
+    %param fractions - fractions positions
+    %return ETA interval formatted as string
 
     */
     function get_formatted
@@ -78,11 +78,11 @@ create or replace package eta as
 
     Formats ETA interval as string based on total work and start timestamp set by set_total_work and **sofar** with **days** position for days and **fractions** positions for fractions of second.
 
-    @param started_at - timestamp of start of the processing
-    @param total_work - total count of work items to be processed
-    @param sofar - count of work items already processed
-    @param days - days positions
-    @param fractions - fractions positions
+    %param started_at - timestamp of start of the processing
+    %param total_work - total count of work items to be processed
+    %param sofar - count of work items already processed
+    %param days - days positions
+    %param fractions - fractions positions
 
     */
     function get_formatted

@@ -7,11 +7,17 @@ rem
 rem Load package
 @@package.sql
 
+rem init SQL*Plus settings
+@sqlplus_init.sql
+
 prompt Uninstall package Implementation
 @module/implementation/uninstall.sql
 
 prompt Uninstall package API
 @module/api/uninstall.sql
+
+rem finalize SQL*Plus
+@@sqlplus_finalize.sql
 
 rem undefine package globals
 @@undefine_globals.sql

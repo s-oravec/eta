@@ -15,6 +15,9 @@ define l_privileges = "&1"
 rem Load package
 @@package.sql
 
+rem init SQL*Plus settings
+@sqlplus_init.sql
+
 prompt Installing package Implementation
 @module/implementation/install.sql
 
@@ -24,7 +27,8 @@ prompt Installing package API
 prompt Granting privileges on package API
 @module/api/grant_&&l_privileges..sql
 
-show error
+rem finalize SQL*Plus
+@@sqlplus_finalize.sql
 
 rem undefine locals
 undefine l_privileges
