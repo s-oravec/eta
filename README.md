@@ -6,7 +6,7 @@ PLSQL ETA package - computes time remaining
 
 ### `eta.set_total_work`
 
-Sets total count of work units that have to be processed and stores timestamp af call as start of processing timestamp.
+Sets total count of work units **total_work** that have to be processed and stores timestamp of call as start of processing timestamp.
 
 **Parameters**
 
@@ -14,7 +14,7 @@ Sets total count of work units that have to be processed and stores timestamp af
 
 ### `eta.get - overload 1`
 
-Computes ETA interval based on total work and start timestamp set by [`eta.set_total_work`](#eta-set-total-work) and value of sofar paramter - count of items processed so far.
+Computes ETA interval based on total work and start timestamp set by [`eta.set_total_work`](#eta-set-total-work) and value of **sofar** paramter - count of items processed so far.
 
 **Paramters**
 
@@ -22,7 +22,7 @@ Computes ETA interval based on total work and start timestamp set by [`eta.set_t
 
 ### `eta.get - overload 2`
 
-Get ETA interval computed from total work set, start timestamp and count of units processed so far.
+Get ETA interval computed from start timestamp **started_at**, total count work of work items **total_work** and count of units processed so far **sofar**.
 
 **Parameters**
 
@@ -32,7 +32,7 @@ Get ETA interval computed from total work set, start timestamp and count of unit
 
 ### `eta.get_formatted - overload 1`
 
-Formats ETA interval as string with **days** position for days and **fractions** positions for fractions of second.
+Formats ETA interval as string based on total work and start timestamp set by [`eta.set_total_work`](#eta-set-total-work) and **sofar** with **days** position for days and **fractions** positions for fractions of second.
 
 **Parameters**
 
@@ -42,7 +42,7 @@ Formats ETA interval as string with **days** position for days and **fractions**
 
 ### `eta.get_formatted - overload 2`
 
-Formats ETA interval as string based on total work and start timestamp set by [`eta.set_total_work`](#eta-set-total-work) and **sofar** with **days** position for days and **fractions** positions for fractions of second.
+Formats ETA interval as string computed from start timestamp **started_at**, total count of work items **total_work** and count of units processed so far **sofar** with **days** position for days and **fractions** positions for fractions of second.
 
 **Parameters**
 
