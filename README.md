@@ -14,7 +14,7 @@ Sets total count of work units **total_work** that have to be processed and stor
 
 ### `eta.get - overload 1`
 
-Computes ETA interval based on total work and start timestamp set by [`eta.set_total_work`](#eta-set.total-work) and value of **sofar** paramter - count of items processed so far.
+Computes ETA interval based on total work and start timestamp set by [`eta.set_total_work`](#eta.set_total_work) and value of **sofar** paramter - count of items processed so far.
 
 **Paramters**
 
@@ -32,7 +32,7 @@ Get ETA interval computed from start timestamp **started_at**, total count work 
 
 ### `eta.get_formatted - overload 1`
 
-Formats ETA interval as string based on total work and start timestamp set by [`eta.set_total_work`](#eta-set.total-work) and **sofar** with **days** position for days and **fractions** positions for fractions of second.
+Formats ETA interval as string based on total work and start timestamp set by [`eta.set_total_work`](#eta.set_total_work) and **sofar** with **days** position for days and **fractions** positions for fractions of second.
 
 **Parameters**
 
